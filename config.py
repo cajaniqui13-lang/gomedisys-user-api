@@ -19,5 +19,3 @@ SEDE_TRABAJO = os.getenv("SEDE_TRABAJO")
 WAIT_TIMEOUT = int(os.getenv("WAIT_TIMEOUT", 20))
 
 HEADLESS = os.getenv("HEADLESS", "0") == "1"
-
-CHROMEDRIVER_PATH = os.getenv("CHROMEDRIVER_PATH")
