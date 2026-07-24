@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from config import WAIT_TIMEOUT
+from config import BASE_URL, WAIT_TIMEOUT
 
 
 def desactivar_usuario(driver, documento):
@@ -12,12 +12,19 @@ def desactivar_usuario(driver, documento):
 
     wait = WebDriverWait(driver, WAIT_TIMEOUT)
 
-    # Entrar al módulo Configuración de Usuarios
-    boton_usuarios = wait.until(
-        EC.element_to_be_clickable((By.ID, "27"))
-    )
+    driver.get(BASE_URL + "GeneralArea/UserSystem")
 
-    boton_usuarios.click()
+    # Esperar a que cargue la página
+    wait.until(
+    EC.visibility_of_element_located((By.ID, "btnSearchRecord"))
+)
+
+    # Abrir el buscador
+    boton_buscar = wait.until(
+    EC.element_to_be_clickable((By.ID, "btnSearchRecord"))
+)
+
+    boton_buscar.click()
 
     return True
     
