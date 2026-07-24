@@ -26,5 +26,15 @@ def desactivar_usuario(driver, documento):
 
     boton_buscar.click()
 
+    # Esperar el campo Documento del popup
+    campo_documento = wait.until(
+    EC.visibility_of_element_located((By.ID, "lblDocumentToFind"))
+)
+
+    campo_documento.clear()
+
+    campo_documento.send_keys(documento)
+
+    
     return True
     
