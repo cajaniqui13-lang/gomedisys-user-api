@@ -6,10 +6,40 @@ from config import (
     BASE_URL,
     GOMEDISYS_USER,
     GOMEDISYS_PASS,
+    SEDE_TRABAJO,
     WAIT_TIMEOUT
 )
 
 from src.driver import get_driver
+
+
+def seleccionar_sede(driver):
+    """
+    Selecciona la sede de trabajo después del login.
+    """
+
+    wait = WebDriverWait(driver, WAIT_TIMEOUT)
+
+    opcion = wait.until(
+        EC.element_to_be_clickable(
+            (By.XPATH, f"//a[contains(text(), '{SEDE_TRABAJO}')]")
+        )
+    )
+
+    opcion.click()
+
+    confirmar = wait.until(
+        EC.element_to_be_clickable(
+            (By.XPATH, "//button[contains(text(), 'Confirmar')]")
+        )
+    )
+
+    confirmar.click()
+
+    wait.until(
+        EC.url_contains("Home/Index")
+    )
+
 
 def login():
     """
@@ -42,5 +72,7 @@ def login():
     )
 
     login_button.click()
+
+    seleccionar_sede(driver)
 
     return driver
