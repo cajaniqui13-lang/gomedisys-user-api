@@ -35,6 +35,12 @@ def desactivar_usuario(driver, documento):
 
     campo_documento.send_keys(documento)
 
-    
+    # Buscar el usuario
+    boton_buscar_popup = wait.until(
+        EC.element_to_be_clickable((By.ID, "sendFilter"))
+    )
+
+    boton_buscar_popup.click()
+
     return True
     
