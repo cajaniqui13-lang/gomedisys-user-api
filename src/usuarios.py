@@ -51,5 +51,23 @@ def desactivar_usuario(driver, documento):
 
     fila_usuario.click()            
 
+# Esperar a que cargue el formulario del usuario
+    casilla_activo = wait.until(
+    EC.element_to_be_clickable((By.ID, "isActive"))
+)
+
+# Esperar a que desaparezca el loader
+    wait.until(
+    EC.invisibility_of_element_located((By.ID, "loader"))
+)
+
+    print("Checkbox encontrado")
+    print("Está seleccionado:", casilla_activo.is_selected())
+    print("Está habilitado:", casilla_activo.is_enabled())
+
+# Solo desactivar si actualmente está activa
+    if casilla_activo.is_selected():
+       casilla_activo.click()
+
     return True
     
