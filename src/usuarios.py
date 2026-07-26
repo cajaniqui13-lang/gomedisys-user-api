@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from config import BASE_URL, WAIT_TIMEOUT
 
@@ -42,14 +43,23 @@ def desactivar_usuario(driver, documento):
 
     boton_buscar_popup.click()
 
-    # Esperar el resultado de la búsqueda
-    fila_usuario = wait.until(
-    EC.element_to_be_clickable(
-        (By.CSS_SELECTOR, "tbody.k-table-tbody tr.k-table-row")
-    )
-)
+# Esperar el resultado de la búsqueda
+    try:
 
-    fila_usuario.click()            
+     fila_usuario = wait.until(
+        EC.element_to_be_clickable(
+            (By.CSS_SELECTOR, "tbody.k-table-tbody tr.k-table-row")
+        )
+    )
+
+     fila_usuario.click()
+
+    except TimeoutException:
+
+     return {
+            "ok": False,
+            "mensaje": "No se encontró un usuario con ese documento."
+    }          
 
 # Esperar a que cargue el formulario del usuario
     casilla_activo = wait.until(
@@ -97,5 +107,8 @@ def desactivar_usuario(driver, documento):
     EC.invisibility_of_element_located((By.ID, "loader"))
 )
 
-    return True
+    return {
+    "ok": True,
+    "mensaje": "Usuario desactivado correctamente."
+}
     

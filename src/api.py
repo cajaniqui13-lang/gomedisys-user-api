@@ -1,4 +1,5 @@
 from flask import request, jsonify
+import traceback
 
 from src.login import login
 from src.usuarios import desactivar_usuario
@@ -14,10 +15,7 @@ def registrar_rutas(app):
         documento = datos.get("documento")
 
         if not documento:
-            return jsonify({
-                "ok": False,
-                "mensaje": "Debe enviar el documento."
-            }), 400
+            return jsonify({"ok": False, "mensaje": "Debe enviar el documento."}), 400
 
         driver = None
 
@@ -25,19 +23,15 @@ def registrar_rutas(app):
 
             driver = login()
 
-            desactivar_usuario(driver, documento)
+            resultado = desactivar_usuario(driver, documento)
 
-            return jsonify({
-                "ok": True,
-                "mensaje": "Usuario desactivado correctamente."
-            })
+            return jsonify(resultado)
 
         except Exception as e:
 
-            return jsonify({
-                "ok": False,
-                "mensaje": str(e)
-            }), 500
+            traceback.print_exc()
+
+            return jsonify({"ok": False, "mensaje": str(e)}), 500
 
         finally:
 
