@@ -42,5 +42,14 @@ def desactivar_usuario(driver, documento):
 
     boton_buscar_popup.click()
 
+    # Esperar el resultado de la búsqueda
+    fila_usuario = wait.until(
+    EC.element_to_be_clickable(
+        (By.CSS_SELECTOR, "tbody.k-table-tbody tr.k-table-row")
+    )
+)
+
+    fila_usuario.click()            
+
     return True
     
