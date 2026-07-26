@@ -69,5 +69,16 @@ def desactivar_usuario(driver, documento):
     if casilla_activo.is_selected():
        casilla_activo.click()
 
+# Guardar cambios
+    boton_guardar = wait.until(
+    EC.element_to_be_clickable((By.ID, "btnSaveRecord"))
+)
+
+    boton_guardar.click()
+
+    wait.until(
+    EC.invisibility_of_element_located((By.ID, "loader"))
+)
+
     return True
     
