@@ -80,5 +80,22 @@ def desactivar_usuario(driver, documento):
     EC.invisibility_of_element_located((By.ID, "loader"))
 )
 
+# Limpiar formulario para la siguiente búsqueda
+    boton_nuevo = wait.until(
+    EC.element_to_be_clickable((By.ID, "btnNewRecord"))
+)
+
+    wait.until(
+    EC.invisibility_of_element_located(
+        (By.CLASS_NAME, "notification-message")
+    )
+)
+
+    boton_nuevo.click()
+
+    wait.until(
+    EC.invisibility_of_element_located((By.ID, "loader"))
+)
+
     return True
     
