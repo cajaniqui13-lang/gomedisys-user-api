@@ -24,10 +24,9 @@ Quedamos atentos a su respuesta.
 Saludos cordiales,
 Sistema Automatizado RPA
 """)
-
+# Envío mediante SMTP_SSL
     try:
-        with smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT) as server:
-            server.starttls()
+        with smtplib.SMTP_SSL(config.SMTP_SERVER, config.SMTP_PORT) as server:
             server.login(config.SMTP_USER, config.SMTP_PASS)
             server.send_message(msg)
         print(f"[Mailer] Correo enviado exitosamente a: {', '.join(config.MAIL_RECIPIENTS)}")
