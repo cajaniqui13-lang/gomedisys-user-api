@@ -1,8 +1,9 @@
 from datetime import datetime
-from pathlib import Path
+
+from config import LOGS_DIR
 
 
-LOG_FILE = Path("logs/api.log")
+LOG_FILE = LOGS_DIR / "api.log"
 
 
 def escribir_log(documento, mensaje):
