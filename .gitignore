@@ -7,3 +7,11 @@ __pycache__/
 .vscode/
 
 logs/
+
+build/
+
+dist/
+
+venv/
+
+*.spec
